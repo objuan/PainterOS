@@ -1,0 +1,70 @@
+# Python
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Env
+
+.venv/
+
+# pytest
+
+.pytest_cache/
+
+# mypy
+
+.mypy_cache/
+
+# Ruff
+
+.ruff_cache/
+
+# coverage
+
+.coverage
+
+htmlcov/
+
+# VSCode
+
+.vscode/
+
+# Eclipse
+
+.settings/
+
+.project
+
+.pydevproject
+
+# PyCharm
+
+.idea/
+
+# Build
+
+build/
+
+dist/
+
+*.egg-info/
+
+# Logs
+
+logs/
+
+*.log
+
+# Images
+
+output/
+
+renders/
+
+# OS
+
+Thumbs.db
+
+.DS_Store

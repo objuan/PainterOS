@@ -1,0 +1,11 @@
+python -m venv .venv
+
+.venv\Scripts\activate
+
+pip install -U pip
+
+pip install -e .[dev]
+
+pre-commit install
+
+pytest
