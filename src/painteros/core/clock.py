@@ -1,30 +1,40 @@
-from dataclasses import dataclass
+from __future__ import annotations
 
 
-@dataclass
 class SimulationClock:
 
-    time: float = 0.0
-    delta_time: float = 0.0
+    def __init__(self) -> None:
 
-    running: bool = False
-    paused: bool = False
+        self.simulation_time = 0.0
+        self.delta_time = 0.0
 
-    speed: float = 1.0
+        self.frame = 0
+
+        self.speed = 1.0
+
+        self.running = False
+        self.paused = False
 
     def start(self):
+
         self.running = True
         self.paused = False
 
     def stop(self):
+
         self.running = False
-        self.time = 0.0
+        self.paused = False
+
+        self.simulation_time = 0.0
         self.delta_time = 0.0
+        self.frame = 0
 
     def pause(self):
+
         self.paused = True
 
     def resume(self):
+
         self.paused = False
 
     def tick(self, dt: float):
@@ -36,4 +46,11 @@ class SimulationClock:
             return
 
         self.delta_time = dt * self.speed
-        self.time += self.delta_time
+        self.simulation_time += self.delta_time
+        self.frame += 1
+
+    def step(self, dt: float):
+
+        self.delta_time = dt
+        self.simulation_time += dt
+        self.frame += 1

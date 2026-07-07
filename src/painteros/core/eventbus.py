@@ -1,23 +1,63 @@
+from __future__ import annotations
+
 from collections import defaultdict
+from threading import RLock
+from typing import Any, Callable
+
+
+EventHandler = Callable[[Any], None]
 
 
 class EventBus:
+
     def __init__(self):
-        self._subs = defaultdict(list)
 
-    def subscribe(self, event, cb):
-        self._subs[event].append(cb)
+        self._lock = RLock()
 
-    def unsubscribe(self, event, cb):
-        if cb in self._subs[event]:
-            self._subs[event].remove(cb)
+        self._handlers = defaultdict(list)
 
-    def publish(self, event, *a, **k):
-        for cb in list(self._subs[event]):
-            cb(*a, **k)
+    def subscribe(
+        self,
+        event_type: type,
+        handler: EventHandler,
+    ):
+
+        with self._lock:
+            self._handlers[event_type].append(handler)
+
+    def unsubscribe(
+        self,
+        event_type: type,
+        handler: EventHandler,
+    ):
+
+        with self._lock:
+
+            if handler in self._handlers[event_type]:
+                self._handlers[event_type].remove(handler)
+
+    def publish(self, event):
+
+        handlers = []
+
+        with self._lock:
+            handlers = list(
+                self._handlers[type(event)]
+            )
+
+        for h in handlers:
+            h(event)
 
     def clear(self):
-        self._subs.clear()
 
-    def statistics(self):
-        return {k: len(v) for k, v in self._subs.items()}
+        with self._lock:
+            self._handlers.clear()
+
+    @property
+    def subscriptions(self):
+
+        with self._lock:
+            return {
+                k.__name__: len(v)
+                for k, v in self._handlers.items()
+            }
