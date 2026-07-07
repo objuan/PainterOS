@@ -5,7 +5,7 @@ class SimulationClock:
 
     def __init__(self) -> None:
 
-        self.simulation_time = 0.0
+        self.time = 0.0
         self.delta_time = 0.0
 
         self.frame = 0
@@ -25,7 +25,7 @@ class SimulationClock:
         self.running = False
         self.paused = False
 
-        self.simulation_time = 0.0
+        self.time = 0.0
         self.delta_time = 0.0
         self.frame = 0
 
@@ -46,11 +46,11 @@ class SimulationClock:
             return
 
         self.delta_time = dt * self.speed
-        self.simulation_time += self.delta_time
+        self.time += self.delta_time
         self.frame += 1
 
     def step(self, dt: float):
 
         self.delta_time = dt
-        self.simulation_time += dt
+        self.time += dt
         self.frame += 1

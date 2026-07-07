@@ -176,11 +176,11 @@ class TileManager:
 
     ):
 
-        r0 = rect.top // self.tile_size
-        r1 = rect.bottom // self.tile_size
-
+        r0 = rect.top // self.tile_size  
         c0 = rect.left // self.tile_size
-        c1 = rect.right // self.tile_size
+     
+        r1 = (rect.bottom - 1) // self.tile_size
+        c1 = (rect.right - 1) // self.tile_size
 
         result = []
 
