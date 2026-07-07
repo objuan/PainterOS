@@ -57,3 +57,24 @@ License
                    Renderer
                         │
                  Future ROS2
+
+--------------------------
+
+WORLD SPACE (mm)
+                            │
+                            │
+                Robot / Vision / Camera
+                            │
+                            ▼
+                  CANVAS SPACE (pixel)
+                            │
+                            │
+                Brush Engine / Physics
+                            │
+                            ▼
+                   TILE SPACE (locale)
+
+
+World Space	Robot, telecamera, calibrazione
+Canvas Space	Tela virtuale
+Tile Space	Elaborazione interna di una Tile
